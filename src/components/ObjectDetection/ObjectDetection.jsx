@@ -1,4 +1,4 @@
-import { useEffect,useRef, useState } from 'react';
+import { useEffect,useRef, useState,Fragment } from 'react';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
 import "./ObjectDetection.css";
@@ -72,8 +72,8 @@ const ObjectDetection = () => {
         {isWebcamStarted ? <video ref={videoRef} autoPlay muted /> : <div />}
         {/* Add the tags below to show a label using the p element and a box using the div element */}
         {predictions.length > 0 && (
-          predictions.map(prediction => {
-            return <>
+          predictions.map((prediction,index) => {
+            return <Fragment key={index}>
               <p style={{
                 left: `${prediction.bbox[0]}px`,
                 top: `${prediction.bbox[1]}px`,
@@ -87,7 +87,7 @@ const ObjectDetection = () => {
               width: `${prediction.bbox[2]}px`,
               height: `${prediction.bbox[3]}px`
             }} />
-            </>
+            </Fragment>
           })
         )}
       </div>
